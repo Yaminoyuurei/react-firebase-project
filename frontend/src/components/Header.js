@@ -15,7 +15,14 @@ const Header = () => {
 
   const handleClickLogout = async () => {
 		try {
-			const response = await fetch(`http://localhost:3333/api/users/logout`);
+			const response = await fetch(`http://localhost:3333/api/users/logout`,{
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        credentials: "same-origin",
+      });
 
 			if (response.ok) {
 				setAuth(Cookies.remove('jwt'));

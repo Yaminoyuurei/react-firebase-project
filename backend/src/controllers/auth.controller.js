@@ -66,9 +66,13 @@ export const login = async (req, res) => {
 };
 
 export const logout = async (req, res) => {
-
-    res.cookie("jwt", "", { maxAge: 1 });
-    res.status(200).json({ token: "Token expired" });
-    console.log("user disconnected");
+    try{
+      res.cookie("jwt", "", { maxAge: 1 });
+      res.status(200).json({ token: "Token expired" });
+      console.log("user disconnected");
+    }
+    catch (err) {
+      res.status(500).json({ message: err.message });
+    }
 
 };
