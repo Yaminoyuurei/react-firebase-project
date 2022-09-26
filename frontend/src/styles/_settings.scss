@@ -1,0 +1,23 @@
+$color-1: #002a77;
+$nav-h : 3rem;
+
+body{
+  margin: 0;
+  padding: 0;
+  background-color: #222222;
+  color: white
+}
+.page
+{
+  max-width: 1280px;
+  margin: $nav-h auto 0 auto;
+  min-height: calc(100vh - $nav-h);
+  background: #000000c4;
+}
+h1{
+  padding: 1rem 0;
+  text-align: center;
+}
+a{
+  color: white;
+}

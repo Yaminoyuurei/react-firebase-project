@@ -1,0 +1,54 @@
+.Form {
+  display: block;
+  position: fixed;
+  top: $nav-h;
+  right: 0;
+  background-color: $color-1;
+  padding: 20px;
+  text-align: center;
+  font-size: 1.1rem;
+  .btn {
+    background-color: #4caf50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: 1px solid #4caf50;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+  }
+  .error{
+    color: red;
+    font-size: 1rem;
+    padding: 0;
+    margin: 0;
+  }
+  input[type="text"],
+  input[type="password"] ,input[type="email"]{
+    width: 100%;
+    padding: 10px 10px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  .btn-close {
+    text-align: right;
+    button {
+      text-align: right;
+      cursor: pointer;
+      background-color: red;
+      padding: 3px 7px;
+      border: 0;
+      border-radius: 15px;
+      i {
+        font-size: 15px;
+        color: white
+      }
+    }
+  }
+}
+.hide{
+  display: none;
+}

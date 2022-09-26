@@ -1,0 +1,66 @@
+.header {
+  position: fixed;
+  top: 0;
+  .navbar {
+    height: $nav-h;
+    width: 100vw;
+    display: grid;
+    grid-template-columns: $nav-h 1fr;
+    grid-template-rows: $nav-h;
+    grid-template-areas: "I M";
+    background: $color-1;
+    overflow: hidden;
+    .icon {
+      grid-area: I;
+      a {
+        transition: 0.3s ease;
+        img {
+          width: 100%;
+        }
+        &:hover img {
+          translate: 3px -3px;
+        }
+      }
+    }
+    .menu {
+      grid-area: M;
+      ul {
+        list-style-type: none;
+        margin: 0 10px 0 0;
+        padding: 0;
+        li {
+          float: right;
+          a {
+            display: block;
+            font-size: 1.1rem;
+            color: white;
+            text-align: center;
+            padding: calc($nav-h/3) 18px;
+            margin-right: 2px;
+            text-decoration: none;
+            transition: 0.3s ease;
+            &:hover i {
+              translate: 2px -2px;
+            }
+            i {
+              margin-right: 5px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 768px){
+  .menu {
+    a{
+      padding: calc($nav-h/5) 5px !important;
+      span{
+        display: none;
+      }
+      i{
+        font-size: 2rem;
+      }
+    }
+  }
+}

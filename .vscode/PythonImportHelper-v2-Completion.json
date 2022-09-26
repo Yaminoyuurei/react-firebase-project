@@ -1,0 +1,113 @@
+[
+    {
+        "label": "pymongo",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pymongo",
+        "description": "pymongo",
+        "detail": "pymongo",
+        "documentation": {}
+    },
+    {
+        "label": "DataBase",
+        "importPath": "database.Database",
+        "description": "database.Database",
+        "isExtraImport": true,
+        "detail": "database.Database",
+        "documentation": {}
+    },
+    {
+        "label": "Flask",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "Response",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "request",
+        "importPath": "flask",
+        "description": "flask",
+        "isExtraImport": true,
+        "detail": "flask",
+        "documentation": {}
+    },
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "generate_password_hash",
+        "importPath": "werkzeug.security",
+        "description": "werkzeug.security",
+        "isExtraImport": true,
+        "detail": "werkzeug.security",
+        "documentation": {}
+    },
+    {
+        "label": "check_password_hash",
+        "importPath": "werkzeug.security",
+        "description": "werkzeug.security",
+        "isExtraImport": true,
+        "detail": "werkzeug.security",
+        "documentation": {}
+    },
+    {
+        "label": "User_controller",
+        "kind": 6,
+        "importPath": "server.controllers.UsersController",
+        "description": "server.controllers.UsersController",
+        "peekOfCode": "class User_controller:\n  def init",
+        "detail": "server.controllers.UsersController",
+        "documentation": {}
+    },
+    {
+        "label": "DataBase",
+        "kind": 6,
+        "importPath": "server.database.Database",
+        "description": "server.database.Database",
+        "peekOfCode": "class DataBase:\n  def __init__(self):\n    try:\n      self.mongo = pymongo.MongoClient(\n        host=\"127.0.0.1\", \n        port=27017, \n        serverSelectionTimeoutMS=1000)\n      self.db = self.mongo.myproject\n      self.mongo.server_info()\n    except Exception as e:",
+        "detail": "server.database.Database",
+        "documentation": {}
+    },
+    {
+        "label": "create_user",
+        "kind": 2,
+        "importPath": "server.main",
+        "description": "server.main",
+        "peekOfCode": "def create_user():\n  password = request.form.get(\"password\")\n  hashedpassword = generate_password_hash(password)\n  try:\n    user = {\n      \"pseudo\":request.form.get(\"pseudo\"),\n      \"email\":request.form.get(\"email\"),\n      \"password\":hashedpassword}\n    dbResponse = db.db.users.insert_one(user)\n    print(dbResponse.inserted_id)",
+        "detail": "server.main",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "server.main",
+        "description": "server.main",
+        "peekOfCode": "app = Flask(__name__)\ndb = DataBase()\n@app.route(\"/api/accounts\", methods=[\"POST\"])\ndef create_user():\n  password = request.form.get(\"password\")\n  hashedpassword = generate_password_hash(password)\n  try:\n    user = {\n      \"pseudo\":request.form.get(\"pseudo\"),\n      \"email\":request.form.get(\"email\"),",
+        "detail": "server.main",
+        "documentation": {}
+    },
+    {
+        "label": "db",
+        "kind": 5,
+        "importPath": "server.main",
+        "description": "server.main",
+        "peekOfCode": "db = DataBase()\n@app.route(\"/api/accounts\", methods=[\"POST\"])\ndef create_user():\n  password = request.form.get(\"password\")\n  hashedpassword = generate_password_hash(password)\n  try:\n    user = {\n      \"pseudo\":request.form.get(\"pseudo\"),\n      \"email\":request.form.get(\"email\"),\n      \"password\":hashedpassword}",
+        "detail": "server.main",
+        "documentation": {}
+    }
+]
