@@ -1,22 +1,20 @@
 import React, { useContext, useState } from "react";
-import OutsideClickHandler from "react-outside-click-handler";
-// import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
-import { UserContext } from "../context/UserContext";
+import { AuthContext } from "../../context/AuthContext";
+import { UserContext } from "../../context/UserContext";
 import { useForm } from "react-hook-form";
 import Cookies from "js-cookie";
+import { MenuContext } from "../../context/MenuContext";
 
 const Login = (props) => {
+  const {setTabs}=props
   const [, setAuth] = useContext(AuthContext);
   const [, setCurrentUser] = useContext(UserContext);
-  const { showRegister, setShowRegister } = props;
   const [errors,setErrors]= useState("")
+  const [,setShowMenu] = useContext(MenuContext)
   
-  // let navigate = useNavigate();
 
   let defaultValues = {
     pseudo: "",
-    email:"",
     password: "",
   };
 
@@ -33,7 +31,7 @@ const Login = (props) => {
     try {
       clearErrors();
       setErrors("")
-      const response = await fetch("http://localhost:3333/api/users/register", {
+      const response = await fetch("http://localhost:3333/api/users/login", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -57,8 +55,8 @@ const Login = (props) => {
           const initialValue = JSON.parse(saved);
           return initialValue || "";
         });
-
-        setShowRegister("hide")
+        setShowMenu("hide")
+        setTabs(3)
       }
     } catch (error) {
       console.log(error);
@@ -70,47 +68,33 @@ const Login = (props) => {
     }
   };
     return (
-      <OutsideClickHandler
-        onOutsideClick={() => {
-          setShowRegister("hide");
-        }}
-      >
-        <div className={showRegister}>
+        <div className="Form">
           <form onSubmit={handleSubmit(submit)}>
-            <label htmlFor="register-pseudo">Pseudo : </label>
+            <label htmlFor="connect-pseudo">Pseudo : </label>
             <br />
             <input
               {...register("pseudo")}
               type="text"
               name="pseudo"
-              id="register-pseudo"
+              id="connect-pseudo"
             />
             <br />
-            <label htmlFor="register-password">E-mail :</label>
-            <br />
-            <input
-              {...register("email")}
-              type="email"
-              name="email"
-              id="register-email"
-            />
-            <br />
-            <label htmlFor="register-password">Mot de passe :</label>
+
+            <label htmlFor="connect-password">Mot de passe :</label>
             <br />
             <input
               {...register("password")}
               type="password"
               name="password"
-              id="register-password"
+              id="connect-password"
             />
             <br />
             <p className="error">{errors}</p>
             <button disabled={isSubmitting} className="btn">
-              S'enregistrer
+              Se connecter
             </button>
           </form>
         </div>
-      </OutsideClickHandler>
     );
   }
 

@@ -22,15 +22,22 @@ export const register = async (req, res) => {
       pseudo: pseudo,
       email: email,
       password: hashedPassword,
+      nom: "",
+      prenom: "",
+      birthday: "",
+      adresse: "",
     });
-
+    const token = createToken(user._id);
+    res.cookie("jwt", token, { httpOnly: true, maxAge });
     res.status(200).json({
-      user: {
-        pseudo: user.pseudo,
-        email: user.email,
-        createdAt: user.createdAt,
-        updatedAt: user.updatedAt,
-      },
+      _id: user._id,
+      pseudo: user.pseudo,
+      email: user.email,
+      nom: user.nom,
+      prenom: user.prenom,
+      birthday: user.birthday,
+      adresse: user.adresse,
+      token: token,
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -48,13 +55,17 @@ export const login = async (req, res) => {
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (isPasswordValid) {
-      console.log("Login for "+pseudo);
+      console.log("Login for " + pseudo);
       const token = createToken(user._id);
       res.cookie("jwt", token, { httpOnly: true, maxAge });
       res.status(200).json({
         _id: user._id,
         pseudo: user.pseudo,
         email: user.email,
+        nom: user.nom,
+        prenom: user.prenom,
+        birthday: user.birthday,
+        adresse: user.adresse,
         token: token,
       });
     } else {
@@ -66,13 +77,11 @@ export const login = async (req, res) => {
 };
 
 export const logout = async (req, res) => {
-    try{
-      res.cookie("jwt", "", { maxAge: 1 });
-      res.status(200).json({ token: "Token expired" });
-      console.log("user disconnected");
-    }
-    catch (err) {
-      res.status(500).json({ message: err.message });
-    }
-
+  try {
+    res.cookie("jwt", "", { maxAge: 1 });
+    res.status(200).json({ token: "Token expired" });
+    console.log("user disconnected");
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 };
