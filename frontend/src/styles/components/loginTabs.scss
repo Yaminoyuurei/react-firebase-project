@@ -6,13 +6,15 @@
 
 .container {
   display: flex;
+  width: 250px;
   flex-direction: column;
-  position: fixed;
+  position: absolute;
   top: $nav-h;
-  right: 0;
+  right: 10px;
   background: #121212;
   word-break: break-all;
   border: 1px solid rgba(0, 0, 0, 0.274);
+  z-index: 0;
 }
 
 .bloc-tabs {
@@ -78,6 +80,9 @@ button {
 .active-content {
   display: block;
 }
-.hide {
-  display: none;
+@media screen and (max-width: 768px){
+  .container {
+    width: 100%;
+    right: 0;
+  }
 }

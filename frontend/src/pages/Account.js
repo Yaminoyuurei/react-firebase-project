@@ -27,7 +27,7 @@ const Account = () => {
     try {
       clearErrors();
       const response = await fetch(
-        `http://localhost:3333/api/users/${currentUser._id}`,
+        `http://192.168.1.39:3333/api/users/${currentUser._id}`,
         {
           method: "PATCH",
           headers: {

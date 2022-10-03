@@ -5,13 +5,11 @@ import { useForm } from "react-hook-form";
 import Cookies from "js-cookie";
 import { MenuContext } from "../../context/MenuContext";
 
-const Login = (props) => {
-  const {setTabs}=props
+const Login = () => {
   const [, setAuth] = useContext(AuthContext);
   const [, setCurrentUser] = useContext(UserContext);
-  const [errors,setErrors]= useState("")
-  const [,setShowMenu] = useContext(MenuContext)
-  
+  const [errors, setErrors] = useState("");
+  const [, setShowMenu] = useContext(MenuContext);
 
   let defaultValues = {
     pseudo: "",
@@ -30,8 +28,8 @@ const Login = (props) => {
   const submit = async (values) => {
     try {
       clearErrors();
-      setErrors("")
-      const response = await fetch("http://localhost:3333/api/users/login", {
+      setErrors("");
+      const response = await fetch("http://127.0.0.1:3333/api/users/login", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -55,48 +53,46 @@ const Login = (props) => {
           const initialValue = JSON.parse(saved);
           return initialValue || "";
         });
-        setShowMenu("hide")
-        setTabs(3)
+        setShowMenu("hide");
       }
     } catch (error) {
       console.log(error);
-      setErrors("Le pseudo ou le mot de passe est incorrect")
+      setErrors("Le pseudo ou le mot de passe est incorrect");
       setError("generic", {
         type: "generic",
         message: "Il y a eu une erreur !!",
       });
     }
   };
-    return (
-        <div className="Form">
-          <form onSubmit={handleSubmit(submit)}>
-            <label htmlFor="connect-pseudo">Pseudo : </label>
-            <br />
-            <input
-              {...register("pseudo")}
-              type="text"
-              name="pseudo"
-              id="connect-pseudo"
-            />
-            <br />
+  return (
+    <div className="Form">
+      <form onSubmit={handleSubmit(submit)}>
+        <label htmlFor="connect-pseudo">Pseudo : </label>
+        <br />
+        <input
+          {...register("pseudo")}
+          type="text"
+          name="pseudo"
+          id="connect-pseudo"
+        />
+        <br />
 
-            <label htmlFor="connect-password">Mot de passe :</label>
-            <br />
-            <input
-              {...register("password")}
-              type="password"
-              name="password"
-              id="connect-password"
-            />
-            <br />
-            <p className="error">{errors}</p>
-            <button disabled={isSubmitting} className="btn">
-              Se connecter
-            </button>
-          </form>
-        </div>
-    );
-  }
-
+        <label htmlFor="connect-password">Mot de passe :</label>
+        <br />
+        <input
+          {...register("password")}
+          type="password"
+          name="password"
+          id="connect-password"
+        />
+        <br />
+        <p className="error">{errors}</p>
+        <button disabled={isSubmitting} className="btn">
+          Se connecter
+        </button>
+      </form>
+    </div>
+  );
+};
 
 export default Login;

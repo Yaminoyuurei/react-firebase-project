@@ -1,11 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { UserContext } from "../context/UserContext";
-import LoginTabs from "./MenuBar/LoginTabs";
+import Menu from "./MenuBar/Menu";
 import { MenuContext } from "../context/MenuContext";
 
 const Header = () => {
+  const [tabs, setTabs] = useState(1);
   const [auth] = useContext(AuthContext);
   const [currentUser] = useContext(UserContext);
   const [, setShowMenu] = useContext(MenuContext);
@@ -26,6 +27,7 @@ const Header = () => {
                 <NavLink
                   onClick={() => {
                     setShowMenu("container");
+                    setTabs(3)
                   }}
                 >
                   <i className="fas fa-address-card" />
@@ -47,6 +49,7 @@ const Header = () => {
                 <NavLink
                   onClick={() => {
                     setShowMenu("container");
+                    setTabs(1)
                   }}
                 >
                   <i className="fas fa-user-lock" />
@@ -63,7 +66,7 @@ const Header = () => {
           )}
         </div>
       </div>
-      <LoginTabs/>
+      <Menu tabs={tabs} setTabs={setTabs}/>
     </div>
   );
 };
