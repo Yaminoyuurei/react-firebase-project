@@ -11,14 +11,17 @@ import {
   Button,
   MenuItem,
 } from "@mui/material";
+import LogoutIcon from "@mui/icons-material/Logout";
+import PersonIcon from "@mui/icons-material/Person";
+import LoginIcon from "@mui/icons-material/Login";
 import MenuIcon from "@mui/icons-material/Menu";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import { Link, useNavigate } from "react-router-dom";
 import { MenuContext } from "../contexts/MenuContext";
 import logo from "../assets/logo.png";
 import { AuthContext } from "../contexts/AuthContext";
 import { signOut } from "firebase/auth";
-import { auth } from "../firebase-config";
+import { auth } from "../services/firebase-config";
 
 const pages = [
   { name: "News", link: "/coucou" },
@@ -61,7 +64,7 @@ const Navbar = () => {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="fixed">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <IconButton onClick={() => navigate("/")}>
@@ -101,6 +104,7 @@ const Navbar = () => {
             >
               {pages.map((page) => (
                 <MenuItem
+                  sx={{ p: 1 }}
                   key={page.name}
                   onClick={() => handleNavigate(handleCloseNavMenu, page.link)}
                 >
@@ -144,16 +148,17 @@ const Navbar = () => {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              {!currentUser ? (
-                <AccountCircleIcon fontSize="large" />
-              ) : (
-                <Avatar
-                  alt={currentUser.displayName}
-                  src={currentUser.photoURL}
-                />
-              )}
-            </IconButton>
+            {!currentUser ? (
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <Avatar />
+              </IconButton>
+            ) : (
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <Avatar alt="Profil" src={currentUser.photoURL}>
+                  {currentUser.displayName[0]}
+                </Avatar>
+              </IconButton>
+            )}
 
             {/* Account Menu */}
             {!currentUser ? (
@@ -179,7 +184,10 @@ const Navbar = () => {
                     handleCloseUserMenu();
                   }}
                 >
-                  <Typography textAlign="center">Se Connecter</Typography>
+                  <LoginIcon />
+                  <Typography textAlign="right" sx={{ p: 1 }}>
+                    Se Connecter
+                  </Typography>
                 </MenuItem>
                 <MenuItem
                   onClick={() => {
@@ -187,7 +195,10 @@ const Navbar = () => {
                     handleCloseUserMenu();
                   }}
                 >
-                  <Typography textAlign="center">S'enregistrer</Typography>
+                  <VpnKeyIcon />
+                  <Typography textAlign="center" sx={{ p: 1 }}>
+                    S'enregistrer
+                  </Typography>
                 </MenuItem>
               </Menu>
             ) : (
@@ -213,7 +224,10 @@ const Navbar = () => {
                     handleCloseUserMenu();
                   }}
                 >
-                  <Typography textAlign="center">Profil</Typography>
+                  <PersonIcon />
+                  <Typography textAlign="center" sx={{ p: 1 }}>
+                    Profil
+                  </Typography>
                 </MenuItem>
                 <MenuItem
                   onClick={() => {
@@ -221,7 +235,8 @@ const Navbar = () => {
                     handleCloseUserMenu();
                   }}
                 >
-                  <Typography textAlign="center" color="red">
+                  <LogoutIcon sx={{ color: "red" }} />
+                  <Typography textAlign="center" sx={{ p: 1 }} color="red">
                     Déconnection
                   </Typography>
                 </MenuItem>

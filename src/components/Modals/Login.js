@@ -8,10 +8,10 @@ import {
 } from "@mui/material";
 
 import React, { useContext, useState } from "react";
-import { MenuContext } from "../contexts/MenuContext";
+import { MenuContext } from "../../contexts/MenuContext";
 import CloseIcon from "@mui/icons-material/Close";
 import IconButton from "@mui/material/IconButton";
-import { AuthContext } from "../contexts/AuthContext";
+import { AuthContext } from "../../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 const style = {
@@ -26,41 +26,30 @@ const style = {
   p: 4,
 };
 const defaultValues = {
-  pseudo: "",
   email: "",
   password: "",
-  retypePassword: "",
 };
 
 const defaultError = {
   email: [false, ""],
   password: [false, ""],
 };
-const Signup = () => {
+const Login = () => {
   const { modalState, toggleModals } = useContext(MenuContext);
-  const { register, editAccount } = useContext(AuthContext);
+  const { logIn } = useContext(AuthContext);
   const navigate = useNavigate();
   const [formValues, setFormValues] = useState(defaultValues);
   const [error, setError] = useState(defaultError);
 
-  const handleClose = () => toggleModals("");
-  const handleError = (type = "none", error = false, text = "") => {
-    switch (type) {
-      case "email":
-        setError({
-          email: [error, text],
-          password: [false, ""],
-        });
-        break;
-      case "password":
-        setError({
-          email: [false, ""],
-          password: [error, text],
-        });
-        break;
-      default:
-        setError(defaultError);
-        break;
+  const handleClose = () => toggleModals();
+  const handleError = (error = false, text = "") => {
+    if (error) {
+      setError({
+        email: [error, text],
+        password: [error, text],
+      });
+    } else {
+      setError(defaultError);
     }
   };
   const handleInputChange = (e) => {
@@ -72,39 +61,19 @@ const Signup = () => {
   };
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    if ((formValues.password.length || formValues.retypePassword.length) < 6) {
-      handleError("password", true, "6 Charactère minimum");
-      return;
-    } else if (formValues.password !== formValues.retypePassword) {
-      handleError("password", true, "Les mot de passe ne sont pas identique");
-      return;
-    }
     try {
-      await register(formValues.email, formValues.password);
-      await editAccount({
-        displayName: formValues.pseudo,
-      });
+      await logIn(formValues.email, formValues.password);
       setFormValues(defaultValues);
       handleError();
       handleClose();
       navigate("/private/account");
     } catch (error) {
-      switch (error.code) {
-        case "auth/invalid-email":
-          handleError("email", true, "Adresse email invalide");
-          break;
-        case "auth/email-already-in-use":
-          handleError("email", true, "Cette adresse existe déja");
-          break;
-        default:
-          break;
-      }
+      handleError(true, "email ou mot de passe invalide");
     }
   };
   return (
     <Modal
-      open={modalState.registerModal}
+      open={modalState.signInModal}
       onClose={handleClose}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
@@ -115,7 +84,7 @@ const Signup = () => {
           sx={{ display: "flex", justifyContent: "space-between" }}
         >
           <Typography variant="h5" component="h2">
-            S'enregistrer
+            Se connecter
           </Typography>
           <IconButton color="error" onClick={handleClose}>
             <CloseIcon />
@@ -126,20 +95,10 @@ const Signup = () => {
             <FormControl fullWidth>
               <TextField
                 required
-                name="pseudo"
-                type="text"
-                id="signPseudo"
-                label="Pseudo"
-                value={formValues.pseudo}
-                onChange={handleInputChange}
-                variant="filled"
-              />
-              <TextField
-                required
                 error={error.email[0]}
                 name="email"
                 type="email"
-                id="signEmail"
+                id="logEmail"
                 label="E-mail"
                 value={formValues.email}
                 onChange={handleInputChange}
@@ -151,22 +110,10 @@ const Signup = () => {
                 error={error.password[0]}
                 name="password"
                 type="password"
-                id="signPassword"
+                id="logPassword"
                 value={formValues.password}
                 onChange={handleInputChange}
                 label="Mot de passe"
-                helperText={error.password[1]}
-                variant="filled"
-              />
-              <TextField
-                required
-                error={error.password[0]}
-                name="retypePassword"
-                type="password"
-                id="signRetypePassword"
-                value={formValues.retypePassword}
-                onChange={handleInputChange}
-                label="Retaper le mot de passe "
                 helperText={error.password[1]}
                 variant="filled"
               />
@@ -186,4 +133,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Login;
