@@ -1,8 +1,11 @@
+import { Container } from '@mui/material'
 import React from 'react'
 
 const Account = () => {
   return (
-    <div>Account</div>
+    <Container sx={{textAlign:"center"}}>
+    <h1>Mon Compte</h1>
+  </Container>
   )
 }
 

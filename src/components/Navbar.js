@@ -1,31 +1,34 @@
 import React, { useContext, useState } from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  IconButton,
+  Typography,
+  Menu,
+  Container,
+  Avatar,
+  Button,
+  MenuItem,
+} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import MenuItem from "@mui/material/MenuItem";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Link, useNavigate } from "react-router-dom";
 import { MenuContext } from "../contexts/MenuContext";
+import logo from "../assets/logo.png";
+import { AuthContext } from "../contexts/AuthContext";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase-config";
 
 const pages = [
   { name: "News", link: "/coucou" },
   { name: "Météo", link: "/la" },
   { name: "Contact", link: "/forme" },
 ];
-const settings = [
-  { name: "Connexion", show: "login" },
-  { name: "S'enregistrer", show: "signup" },
-  { name: "Profil", link: "/private" },
-];
 
 const Navbar = () => {
-  const {toggleModals} = useContext(MenuContext);
+  const { toggleModals } = useContext(MenuContext);
+  const { currentUser } = useContext(AuthContext);
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const navigate = useNavigate();
@@ -44,22 +47,16 @@ const Navbar = () => {
     setAnchorElUser(null);
   };
 
-  const handleNavigate = (handle, link = undefined, show = undefined) => {
+  const handleNavigate = (handle, link) => {
     handle();
-    if (link !== undefined) {
-      navigate(link);
-    } else {
-      switch (show) {
-        case "login":
-          toggleModals("login")
-          break;
-        case "signup":
-          toggleModals("register")
-          break;
-        default:
-          console.log("unable to navigate");
-          break;
-      }
+    navigate(link);
+  };
+  const logOut = async () => {
+    try {
+      await signOut(auth);
+      navigate("/");
+    } catch (error) {
+      alert("For some Reason we can't disconnect");
     }
   };
 
@@ -69,7 +66,7 @@ const Navbar = () => {
         <Toolbar disableGutters>
           <IconButton onClick={() => navigate("/")}>
             <Avatar
-              src="./logo512.png"
+              src={logo}
               sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
             />
           </IconButton>
@@ -114,7 +111,7 @@ const Navbar = () => {
           </Box>
           <Link to="/">
             <Avatar
-              src="./logo512.png"
+              src={logo}
               sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}
             />
           </Link>
@@ -148,40 +145,88 @@ const Navbar = () => {
 
           <Box sx={{ flexGrow: 0 }}>
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <Avatar alt="User" src="/static/images/avatar/2.jpg" />
+              {!currentUser ? (
+                <AccountCircleIcon fontSize="large" />
+              ) : (
+                <Avatar
+                  alt={currentUser.displayName}
+                  src={currentUser.photoURL}
+                />
+              )}
             </IconButton>
 
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
+            {/* Account Menu */}
+            {!currentUser ? (
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
                 <MenuItem
-                  key={setting.name}
-                  onClick={() =>
-                    handleNavigate(
-                      handleCloseUserMenu,
-                      setting.link,
-                      setting.show
-                    )
-                  }
+                  onClick={() => {
+                    toggleModals("login");
+                    handleCloseUserMenu();
+                  }}
                 >
-                  <Typography textAlign="center">{setting.name}</Typography>
+                  <Typography textAlign="center">Se Connecter</Typography>
                 </MenuItem>
-              ))}
-            </Menu>
+                <MenuItem
+                  onClick={() => {
+                    toggleModals("register");
+                    handleCloseUserMenu();
+                  }}
+                >
+                  <Typography textAlign="center">S'enregistrer</Typography>
+                </MenuItem>
+              </Menu>
+            ) : (
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                <MenuItem
+                  onClick={() => {
+                    navigate("/private/account");
+                    handleCloseUserMenu();
+                  }}
+                >
+                  <Typography textAlign="center">Profil</Typography>
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    logOut();
+                    handleCloseUserMenu();
+                  }}
+                >
+                  <Typography textAlign="center" color="red">
+                    Déconnection
+                  </Typography>
+                </MenuItem>
+              </Menu>
+            )}
           </Box>
         </Toolbar>
       </Container>

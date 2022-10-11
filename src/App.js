@@ -4,8 +4,8 @@ import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import ErrorPage from "./pages/ErrorPage";
 import Signup from "./components/Signup";
-import Private from "./pages/Private/Private";
-import Account from "./pages/Private/Account/Account";
+import Private from "./pages/private/Private";
+import Account from "./pages/private/Account/Account";
 
 function App() {
   return (
