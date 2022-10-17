@@ -176,7 +176,7 @@ const Signup = () => {
                 variant="contained"
                 color="success"
               >
-                Valider
+                S'inscrire
               </Button>
             </FormControl>
           </form>

@@ -22,13 +22,13 @@ import logo from "../assets/logo.png";
 import { AuthContext } from "../contexts/AuthContext";
 import { signOut } from "firebase/auth";
 import { auth } from "../services/firebase-config";
+import { indigo } from "@mui/material/colors";
 
 const pages = [
-  { name: "News", link: "/coucou" },
+  { name: "News", link: "/news" },
   { name: "Météo", link: "/la" },
   { name: "Contact", link: "/forme" },
 ];
-
 const Navbar = () => {
   const { toggleModals } = useContext(MenuContext);
   const { currentUser } = useContext(AuthContext);
@@ -64,7 +64,7 @@ const Navbar = () => {
   };
 
   return (
-    <AppBar position="fixed">
+    <AppBar position="fixed" sx={{backgroundColor: "#09112d"}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <IconButton onClick={() => navigate("/")}>

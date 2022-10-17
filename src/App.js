@@ -6,6 +6,7 @@ import Private from "./pages/Private";
 import Account from "./pages/private/Account";
 import "./App.css";
 import ModalsManager from "./components/ModalsManager";
+import News from "./pages/News/News";
 function App() {
   return (
     <>
@@ -13,6 +14,7 @@ function App() {
       <ModalsManager />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/news" element={<News />} />
         <Route path="/private" element={<Private />}>
           <Route path="/private/account" element={<Account />} />
         </Route>

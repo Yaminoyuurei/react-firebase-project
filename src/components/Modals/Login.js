@@ -123,7 +123,7 @@ const Login = () => {
                 variant="contained"
                 color="success"
               >
-                Valider
+                Se connecter
               </Button>
             </FormControl>
           </form>
