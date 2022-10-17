@@ -15,6 +15,8 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import PersonIcon from "@mui/icons-material/Person";
 import LoginIcon from "@mui/icons-material/Login";
 import MenuIcon from "@mui/icons-material/Menu";
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
 import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import { Link, useNavigate } from "react-router-dom";
 import { MenuContext } from "../contexts/MenuContext";
@@ -22,7 +24,7 @@ import logo from "../assets/logo.png";
 import { AuthContext } from "../contexts/AuthContext";
 import { signOut } from "firebase/auth";
 import { auth } from "../services/firebase-config";
-import { indigo } from "@mui/material/colors";
+import { ColorModeContext } from "../contexts/ColorModeContext";
 
 const pages = [
   { name: "News", link: "/news" },
@@ -32,6 +34,7 @@ const pages = [
 const Navbar = () => {
   const { toggleModals } = useContext(MenuContext);
   const { currentUser } = useContext(AuthContext);
+  const {mode, colorMode} = useContext(ColorModeContext)
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const navigate = useNavigate();
@@ -64,7 +67,7 @@ const Navbar = () => {
   };
 
   return (
-    <AppBar position="fixed" sx={{backgroundColor: "#09112d"}}>
+    <AppBar position="fixed">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <IconButton onClick={() => navigate("/")}>
@@ -146,7 +149,9 @@ const Navbar = () => {
               </Button>
             ))}
           </Box>
-
+          <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
+        {mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+      </IconButton>
           <Box sx={{ flexGrow: 0 }}>
             {!currentUser ? (
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
