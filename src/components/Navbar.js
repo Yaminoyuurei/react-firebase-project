@@ -10,13 +10,14 @@ import {
   Avatar,
   Button,
   MenuItem,
+  ListItemIcon,
 } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
 import PersonIcon from "@mui/icons-material/Person";
 import LoginIcon from "@mui/icons-material/Login";
 import MenuIcon from "@mui/icons-material/Menu";
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import Brightness7Icon from '@mui/icons-material/Brightness7';
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import Brightness7Icon from "@mui/icons-material/Brightness7";
 import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import { Link, useNavigate } from "react-router-dom";
 import { MenuContext } from "../contexts/MenuContext";
@@ -27,14 +28,14 @@ import { auth } from "../services/firebase-config";
 import { ColorModeContext } from "../contexts/ColorModeContext";
 
 const pages = [
-  { name: "News", link: "/news" },
-  { name: "Météo", link: "/la" },
-  { name: "Contact", link: "/forme" },
+  { name: "Actualité", link: "/news" },
+  { name: "Météo", link: "/weather" },
+  { name: "Contact", link: "/contact" },
 ];
 const Navbar = () => {
   const { toggleModals } = useContext(MenuContext);
   const { currentUser } = useContext(AuthContext);
-  const {mode, colorMode} = useContext(ColorModeContext)
+  const { mode, colorMode } = useContext(ColorModeContext);
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const navigate = useNavigate();
@@ -67,7 +68,7 @@ const Navbar = () => {
   };
 
   return (
-    <AppBar position="fixed">
+    <AppBar position="sticky">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <IconButton onClick={() => navigate("/")}>
@@ -107,7 +108,6 @@ const Navbar = () => {
             >
               {pages.map((page) => (
                 <MenuItem
-                  sx={{ p: 1 }}
                   key={page.name}
                   onClick={() => handleNavigate(handleCloseNavMenu, page.link)}
                 >
@@ -149,9 +149,13 @@ const Navbar = () => {
               </Button>
             ))}
           </Box>
-          <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
-        {mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
-      </IconButton>
+          <IconButton
+            sx={{ ml: 1 }}
+            onClick={colorMode.toggleColorMode}
+            color="inherit"
+          >
+            {mode === "dark" ? <Brightness7Icon /> : <Brightness4Icon />}
+          </IconButton>
           <Box sx={{ flexGrow: 0 }}>
             {!currentUser ? (
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -189,10 +193,10 @@ const Navbar = () => {
                     handleCloseUserMenu();
                   }}
                 >
-                  <LoginIcon />
-                  <Typography textAlign="right" sx={{ p: 1 }}>
-                    Se Connecter
-                  </Typography>
+                  <ListItemIcon>
+                    <LoginIcon fontSize="small" />
+                  </ListItemIcon>
+                  Se Connecter
                 </MenuItem>
                 <MenuItem
                   onClick={() => {
@@ -200,10 +204,10 @@ const Navbar = () => {
                     handleCloseUserMenu();
                   }}
                 >
-                  <VpnKeyIcon />
-                  <Typography textAlign="center" sx={{ p: 1 }}>
-                    S'enregistrer
-                  </Typography>
+                  <ListItemIcon>
+                    <VpnKeyIcon fontSize="small"/>
+                  </ListItemIcon>
+                  S'enregistrer
                 </MenuItem>
               </Menu>
             ) : (
@@ -229,10 +233,10 @@ const Navbar = () => {
                     handleCloseUserMenu();
                   }}
                 >
-                  <PersonIcon />
-                  <Typography textAlign="center" sx={{ p: 1 }}>
-                    Profil
-                  </Typography>
+                  <ListItemIcon>
+                    <PersonIcon fontSize="small" />
+                  </ListItemIcon>
+                  Profil
                 </MenuItem>
                 <MenuItem
                   onClick={() => {
@@ -240,10 +244,10 @@ const Navbar = () => {
                     handleCloseUserMenu();
                   }}
                 >
-                  <LogoutIcon sx={{ color: "red" }} />
-                  <Typography textAlign="center" sx={{ p: 1 }} color="red">
-                    Déconnection
-                  </Typography>
+                  <ListItemIcon>
+                    <LogoutIcon fontSize="small" sx={{ color: "red" }} />
+                  </ListItemIcon>
+                  <Typography color="red">Déconnection</Typography>
                 </MenuItem>
               </Menu>
             )}

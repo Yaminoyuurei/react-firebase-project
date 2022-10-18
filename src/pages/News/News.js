@@ -1,16 +1,17 @@
-import { TabContext, TabList, TabPanel } from "@mui/lab";
-import { Alert, AlertTitle, Box, CircularProgress, Container, Grid, Tab } from "@mui/material";
+import { TabContext, TabList } from "@mui/lab";
+import { Alert, AlertTitle, Box, CircularProgress, Container, Tab } from "@mui/material";
 import axios from "axios";
 import { XMLParser } from "fast-xml-parser";
 import React, { useEffect, useState } from "react";
-import Articles from "./components/Articles";
+import TabsContent from "./components/TabsContent";
 
 const parser = new XMLParser({ ignoreAttributes: false });
 
 const tabsData = [
-  { id: "1", name: "France", url: "https://www.francetvinfo.fr/titres.rss" },
-  { id: "2", name: "Jeux Vidéo", url: "https://www.gamergen.com/rss" },
-  { id: "3", name: "Nodejs", url: "https://nodejs.developpez.com/index/rss" },
+  { id: "0", name: "Monde", url: "https://www.france24.com/fr/rss", source:"France24" },
+  { id: "1", name: "France", url: "https://www.france24.com/fr/france/rss", source:"France24" },
+  { id: "2", name: "Jeux Vidéo", url: "https://www.gamergen.com/rss", source:"Gamergen" },
+  { id: "3", name: "Nodejs", url: "https://nodejs.developpez.com/index/rss", source:"developpez" },
 ];
 const News = () => {
   const [tabs, setTabs] = useState(tabsData[0]);
@@ -23,9 +24,9 @@ const News = () => {
     axios
       .get(`${CORS_URL}${tabs.url}`)
       .then(({ data }) => {
-        const resData = () => parser.parse(data.toString()).rss.channel.item;
-        setData(resData);
-        setLoading("OK");
+          const resData = parser.parse(data.toString()).rss.channel.item;
+          setData(resData);
+          setLoading("OK");       
       })
       .catch((e) => {
         setLoading("ERROR");
@@ -34,25 +35,25 @@ const News = () => {
 
   const handleChange = (e, newValue) => {
     setLoading("LOADING");
-    setTabs(tabsData[parseInt(newValue) - 1]);
+    setTabs(tabsData[parseInt(newValue)]);
     console.log(tabs);
   };
   return (
     <Container sx={{ textAlign: "center" }}>
-      <h1>News</h1>
+      <h1>Actualités</h1>
       <Box>
         <TabContext
           value={tabs.id}
         >
           <Box>
-            <TabList onChange={handleChange} aria-label="lab API tabs exemple">
+            <TabList onChange={handleChange} variant="scrollable" ria-label="lab API tabs exemple">
               {tabsData.map((tab) => (
                 <Tab key={tab.id} label={tab.name} value={tab.id} />
               ))}
             </TabList>
           </Box>
           {isLoading === "LOADING" && (
-            <Box sx={{ pt: 25 }}>
+            <Box sx={{ p: 25 }}>
               <CircularProgress />
             </Box>
           )}
@@ -60,53 +61,15 @@ const News = () => {
             <Box sx={{ textAlign: "left" }}>
             <Alert severity="error">
             <AlertTitle>Erreur</AlertTitle>
-              Impossible de charger le Contenu.
+              Impossible de charger le contenu, <br/>
+              Il est possible que l'adresse fournit ne sois pas valide.
             </Alert>
             </Box>
           )}
-          <TabPanel value={tabsData[0].id}>
-            {isLoading === "OK" && tabs.id === "1" && (
-              <Grid container spacing={2}>
-                {data.map((article) => (
-                  <Grid item xs={12} md={4} key={article.pubDate}>
-                    <Articles
-                      article={article}
-                      image={article.enclosure["@_url"]}
-                    />
-                  </Grid>
-                ))}
-              </Grid>
-            )}
-          </TabPanel>
-          <TabPanel value={tabsData[1].id}>
-            {isLoading === "OK" && tabs.id === "2" && (
-              <Grid container spacing={2}>
-                {data.map((article) => (
-                  <Grid item xs={12} md={4} key={article.pubDate}>
-                    <Articles
-                      article={article}
-                      image={article["media:content"]["@_url"]}
-                    />
-                  </Grid>
-                ))}
-              </Grid>
-            )}
-          </TabPanel>
-          <TabPanel value={tabsData[2].id}>
-            {isLoading === "OK" && tabs.id === "3" && (
-              <Grid container spacing={2}>
-              {console.log(data)}
-                {data.map((article) => (
-                  <Grid item xs={12} md={4} key={article.pubDate}>
-                    <Articles
-                      article={article}
-                      image={article["enclosure"]["@_url"]}
-                    />
-                  </Grid>
-                ))}
-              </Grid>
-            )}
-          </TabPanel>
+          {isLoading === "OK" && (
+                <TabsContent tabs={tabs} data={data}/>
+          )}
+              
         </TabContext>
       </Box>
     </Container>

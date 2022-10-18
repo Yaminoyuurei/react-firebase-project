@@ -1,24 +1,22 @@
 import {
-  Button,
   Card,
   CardActions,
   CardContent,
   CardMedia,
-  Stack,
   Typography,
 } from "@mui/material";
 import React from "react";
 
-const Articles = ({ article, image}) => {
-  const Goto = () => {
+const Articles = ({article, source}) => {
+  const goto = () => {
     window.open(article.link, "_blank");
   };
   return (
-    <Card>
+    <Card sx={{cursor:"pointer"}} onClick={goto}>
       <CardMedia
         component="img"
         height="140"
-        image={image}
+        image={article.enclosure["@_url"]?article.enclosure["@_url"]:""}
         alt="green iguana"
       />
       <CardContent>
@@ -30,11 +28,8 @@ const Articles = ({ article, image}) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" onClick={Goto}>
-          Lire
-        </Button>
         <Typography variant="body2" component="div" color="text.secondary">
-          test
+          {source}
         </Typography>
       </CardActions>
     </Card>
