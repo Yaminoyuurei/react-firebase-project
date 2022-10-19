@@ -1,18 +1,31 @@
-import { Box, Button } from '@mui/material'
-import React from 'react'
+import { Avatar, Box, Button, Container, Divider, IconButton, Stack, Typography } from "@mui/material";
+import React from "react";
+import GitHubIcon from '@mui/icons-material/GitHub';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import logo from "../assets/logo.png";
 
 const Footer = () => {
   return (
     <footer>
-    <Box>
-      <Box sx={{textAlign:"center"}}>
-        <Button>Aide</Button>
-        <Button>Aide</Button>
-      </Box>
-    </Box>
+      <Container sx={{ textAlign: "center" }}>
+        <Divider variant="middle" sx={{m:2}}/>
+          <Avatar src={logo} sx={{m:"auto"}}/>
+        <Box>
+          <Button>Conditions d'utilisations</Button>
+          <Button>Politique de confidentialité</Button>
+        </Box>
+        <Box>
+          <IconButton>
+            <GitHubIcon/>
+          </IconButton>
+          <IconButton>
+            <LinkedInIcon/>
+          </IconButton>
+        </Box>
+        <Typography variant="subtitle2">© 2022 Yaminoyuurei</Typography>
+      </Container>
     </footer>
+  );
+};
 
-  )
-}
-
-export default Footer
+export default Footer;

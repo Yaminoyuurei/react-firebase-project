@@ -11,7 +11,6 @@ const tabsData = [
   { id: "0", name: "Monde", url: "https://www.france24.com/fr/rss", source:"France24" },
   { id: "1", name: "France", url: "https://www.france24.com/fr/france/rss", source:"France24" },
   { id: "2", name: "Jeux Vidéo", url: "https://www.gamergen.com/rss", source:"Gamergen" },
-  { id: "3", name: "Nodejs", url: "https://nodejs.developpez.com/index/rss", source:"developpez" },
 ];
 const News = () => {
   const [tabs, setTabs] = useState(tabsData[0]);
@@ -30,6 +29,7 @@ const News = () => {
       })
       .catch((e) => {
         setLoading("ERROR");
+        console.log(e)
       });
   }, [tabs]);
 

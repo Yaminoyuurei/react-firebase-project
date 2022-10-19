@@ -2,7 +2,7 @@ import { TabPanel } from '@mui/lab'
 import {ImageList, ImageListItem} from '@mui/material'
 import React from 'react'
 import Articles from './Articles'
-import style from "./muiImageList.css"
+import "./muiImageList.css"
 
 const TabsContent = ({tabs, data}) => {
   return (
