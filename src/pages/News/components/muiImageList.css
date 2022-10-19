@@ -1,0 +1,9 @@
+.MuiImageList-root {
+  column-count: 3 !important
+}
+
+@media only screen and (max-width: 900px) {
+  .MuiImageList-root {
+    column-count: 1 !important;
+  }
+}

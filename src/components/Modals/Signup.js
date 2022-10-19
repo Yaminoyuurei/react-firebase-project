@@ -58,6 +58,12 @@ const Signup = () => {
           password: [error, text],
         });
         break;
+      case "cap":
+        setError({
+          email: [false, ""],
+          password: [false, ""],
+        });
+        break;
       default:
         setError(defaultError);
         break;
