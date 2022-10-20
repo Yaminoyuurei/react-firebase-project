@@ -19,13 +19,13 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import VpnKeyIcon from "@mui/icons-material/VpnKey";
-import { Link, useNavigate } from "react-router-dom";
-import { MenuContext } from "../contexts/MenuContext";
-import logo from "../assets/logo.png";
-import { AuthContext } from "../contexts/AuthContext";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { MenuContext } from "../../contexts/MenuContext";
+import logo from "../../assets/logo.png";
+import { AuthContext } from "../../contexts/AuthContext";
 import { signOut } from "firebase/auth";
-import { auth } from "../services/firebase-config";
-import { ColorModeContext } from "../contexts/ColorModeContext";
+import { auth } from "../../services/firebase-config";
+import { ColorModeContext } from "../../contexts/ColorModeContext";
 
 const pages = [
   { name: "Actualité", link: "/news" },
@@ -140,13 +140,21 @@ const Navbar = () => {
           ></Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
-              <Button
-                key={page.name}
-                onClick={() => handleNavigate(handleCloseNavMenu, page.link)}
-                sx={{ my: 2, color: "white", display: "block" }}
+              <NavLink
+                to={page.link}
+                style={({ isActive }) =>
+                  isActive
+                    ? {
+                        textDecoration: "none",
+                        color: "#90CAF9",
+                      }
+                    : { textDecoration: "none", color: "white" }
+                }
               >
-                {page.name}
-              </Button>
+                <Button key={page.name} sx={{ my: 2, display: "block" }}>
+                  {page.name}
+                </Button>
+              </NavLink>
             ))}
           </Box>
           <IconButton
@@ -205,7 +213,7 @@ const Navbar = () => {
                   }}
                 >
                   <ListItemIcon>
-                    <VpnKeyIcon fontSize="small"/>
+                    <VpnKeyIcon fontSize="small" />
                   </ListItemIcon>
                   S'enregistrer
                 </MenuItem>
