@@ -1,7 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import {getAuth} from "firebase/auth"
-import {initializeAppCheck, ReCaptchaV3Provider} from "firebase/app-check"
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -13,8 +12,5 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const appcheck = initializeAppCheck(app,{
-  provider: new ReCaptchaV3Provider(process.env.REACT_APP_REAPTCHA_SITE_ID),
-  isTokenAutoRefreshEnabled: true
-})
+
 export const auth = getAuth(app)

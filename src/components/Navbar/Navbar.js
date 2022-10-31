@@ -11,6 +11,8 @@ import {
   Button,
   MenuItem,
   ListItemIcon,
+  makeStyles,
+  styled,
 } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
 import PersonIcon from "@mui/icons-material/Person";
@@ -26,12 +28,13 @@ import { AuthContext } from "../../contexts/AuthContext";
 import { signOut } from "firebase/auth";
 import { auth } from "../../services/firebase-config";
 import { ColorModeContext } from "../../contexts/ColorModeContext";
-
+import "./Navbar.css";
 const pages = [
   { name: "Actualité", link: "/news" },
   { name: "Météo", link: "/weather" },
   { name: "Contact", link: "/contact" },
 ];
+
 const Navbar = () => {
   const { toggleModals } = useContext(MenuContext);
   const { currentUser } = useContext(AuthContext);
@@ -122,38 +125,10 @@ const Navbar = () => {
               sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}
             />
           </Link>
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          ></Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
-              <NavLink
-                to={page.link}
-                style={({ isActive }) =>
-                  isActive
-                    ? {
-                        textDecoration: "none",
-                        color: "#90CAF9",
-                      }
-                    : { textDecoration: "none", color: "white" }
-                }
-              >
-                <Button key={page.name} sx={{ my: 2, display: "block" }}>
-                  {page.name}
-                </Button>
+              <NavLink key={page.link} className="navButton" to={page.link}>
+                {page.name}
               </NavLink>
             ))}
           </Box>

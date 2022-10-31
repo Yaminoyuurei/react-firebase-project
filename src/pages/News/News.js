@@ -86,7 +86,6 @@ const News = () => {
                 onChange={handleChange}
                 variant="scrollable"
                 ria-label="lab API tabs exemple"
-                centered
                 sx={{p:"auto"}}
               >
                 {tabsData.map((tab) => (
