@@ -1,0 +1,62 @@
+.loginMenu {
+  display: none;
+  position: fixed;
+  width: 250px;
+  top: 48px;
+  right: 10vw;
+  z-index: 2;
+  background-color: $bk_nav;
+  .tabBar {
+    width: 100%;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    button {
+      color: $nav_link;
+      font-size: 1rem;
+      background-color: $bk_nav;
+      text-align: center;
+      margin: 0;
+      padding: 0 5px;
+      height: 100%;
+      width: 100%;
+      cursor: pointer;
+      border: none;
+      border-bottom: 3px solid none;
+      &:hover {
+        border-bottom: 3px solid $nav_link_active;
+      }
+      &.active {
+        border-bottom: 3px solid $nav_link;
+      }
+    }
+  }
+  .tabContent {
+    padding: 10px 5px;
+    .tab {
+      display: none;
+    }
+  }
+}
+.show {
+  display: block;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  input {
+    margin: 2px 0;
+    padding: 5px 10px;
+    background-color: $nav_link;
+    color: $text_color;
+    border-radius: 2px;
+  }
+  p{
+    margin: 2px 0;
+    padding: 0;
+    background-color: red;
+  }
+}

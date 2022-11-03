@@ -1,12 +1,11 @@
-import { Container } from '@mui/material'
-import React from 'react'
+import React from "react";
 
 const Weather = () => {
   return (
-    <Container sx={{textAlign:"center"}}>
+    <div className="container">
       <h1>Météo</h1>
-    </Container>
-  )
-}
+    </div>
+  );
+};
 
-export default Weather
+export default Weather;

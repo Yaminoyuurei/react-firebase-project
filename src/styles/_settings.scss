@@ -1,0 +1,32 @@
+$bk_nav : rgb(0, 128, 255);
+$nav_link: white;
+$nav_link_active: gray;
+$text_color: black;
+
+body{
+  margin: 0;
+  padding: 0;
+  color: $nav_link;
+}
+
+.btn{
+  cursor: pointer;
+  background-color: green;
+  border: 2px solid green;
+  color: $nav_link;
+  padding: 5px 10px;
+}
+
+.container{
+  padding: 0 10vw;
+  h1{
+    text-align: center;
+    padding: 0;
+    margin-top: 58px;
+    margin-bottom: 10px;
+  }
+  p{
+    padding-top: 0;
+    margin-top: 0;
+  }
+}

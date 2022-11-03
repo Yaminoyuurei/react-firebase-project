@@ -4,7 +4,6 @@ import Home from "./pages/Home";
 import ErrorPage from "./pages/ErrorPage";
 import Private from "./pages/private/Private";
 import Account from "./pages/private/Account";
-import ModalsManager from "./components/ModalsManager";
 import News from "./pages/News/News";
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import { useEffect, useMemo, useState } from "react";
@@ -12,6 +11,7 @@ import { ColorModeContext } from "./contexts/ColorModeContext";
 import Footer from "./components/Footer";
 import Weather from "./pages/Weather";
 import Contact from "./pages/Contact";
+import "./styles/style.scss"
 
 
 function App() {
@@ -44,7 +44,6 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline enableColorScheme />
         <Navbar/>
-        <ModalsManager />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/news" element={<News />} />

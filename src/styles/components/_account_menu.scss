@@ -1,0 +1,36 @@
+.accountMenu{
+  display: none;
+  width: 150px;
+  position: fixed;
+  top: 48px;
+  right: 10vw;
+  .accountContentMenu{
+    display: flex;
+    flex-direction: column;
+    button{
+      cursor: pointer;
+      background-color: $bk_nav;
+      height: 32px;
+      color: $nav_link;
+      display: flex;
+      align-items: center;
+      border: none;
+      i{
+        padding: 0 5px;
+      }
+      p{
+        margin: 0;
+        padding: 0;
+      }
+      .disconnect{
+        background-color: red !important;
+      }
+      &:hover{
+        background-color: $nav_link_active;
+      }
+    }
+  }
+}
+.show {
+  display: block;
+}

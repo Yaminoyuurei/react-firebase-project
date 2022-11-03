@@ -10,7 +10,7 @@ import { auth } from "../services/firebase-config";
 export const AuthContext = createContext();
 
 export function AuthContextProvider(props) {
-  const register = (email, password) => 
+  const signUp = (email, password) => 
   createUserWithEmailAndPassword(auth, email, password)
 
   const logIn = (email, password) =>
@@ -31,7 +31,7 @@ export function AuthContextProvider(props) {
   },[])
 
   return (
-    <AuthContext.Provider value={{ register, logIn, editAccount, currentUser }}>
+    <AuthContext.Provider value={{ signUp, logIn, editAccount, currentUser }}>
       {!loadingData && props.children}
     </AuthContext.Provider>
   );

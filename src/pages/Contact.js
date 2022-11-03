@@ -1,12 +1,12 @@
-import { Container } from '@mui/system'
-import React from 'react'
+
+import React from "react";
 
 const Contact = () => {
   return (
-    <Container sx={{textAlign:"center"}}>
+    <div className="container">
       <h1>Contactez-moi</h1>
-    </Container>
-  )
-}
+    </div>
+  );
+};
 
-export default Contact
+export default Contact;
