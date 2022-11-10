@@ -1,0 +1,85 @@
+.tab-bar {
+  position: fixed;
+  padding: 0 10vw;
+  top: 48px;
+  background-color: $nav_link;
+  height: 32px;
+  width: 100%;
+  border-bottom: 1px solid black;
+  z-index: 1;
+  .tab-item {
+    background-color: $nav_link;
+    font-size: 1rem;
+    border: none;
+    height: 100%;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 5px;
+    border-bottom: 2px solid $nav_link;
+    cursor: pointer;
+    &:hover {
+      border-color: $nav_link_active;
+    }
+    &.active {
+      border-color: $color1 !important;
+    }
+  }
+}
+.tab-container {
+  padding: 10px 10vw;
+  min-height: calc($container_auto - 34px);
+  margin-top: 82px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+
+  .tab-content {
+    display: grid;
+    width: calc(33% - 3px);
+    border: 1px solid black;
+    border-radius: 7px;
+    margin: 2px;
+    grid-template-columns: 1fr;
+    grid-template-rows: 140px 1fr 25px;
+    grid-template-areas:
+      "I"
+      "A"
+      "T";
+    .thumb {
+      grid-area: I;
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+    .article{
+      grid-area: A;
+      h3 {
+        text-align: center;
+        font-weight: normal;
+        margin: 0;
+      }
+      p {
+        margin: 0;
+        padding: 5px;
+      }
+    }
+    .toolbar{
+      grid-area: T;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5px;
+      i{
+        cursor: pointer;
+        &:hover{
+          color: $color1;
+        }
+      }
+      h6{
+        font-weight: normal;
+      }
+    }
+  }
+}

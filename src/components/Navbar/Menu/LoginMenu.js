@@ -15,13 +15,13 @@ const LoginMenu = ({showMenu, setShowMenu}) => {
           className={tab === 1 ? "active" : ""}
           onClick={() => handleTabs(1)}
         >
-          Connection
+          Connexion
         </button>
         <button
           className={tab === 2 ? "active" : ""}
           onClick={() => handleTabs(2)}
         >
-          S'enregister
+          Inscription
         </button>
       </div>
       <div className="tabContent">

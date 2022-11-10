@@ -4,12 +4,13 @@
   position: fixed;
   top: 48px;
   right: 10vw;
+  z-index: 3;
   .accountContentMenu{
     display: flex;
     flex-direction: column;
     button{
       cursor: pointer;
-      background-color: $bk_nav;
+      background-color: $color1;
       height: 32px;
       color: $nav_link;
       display: flex;
@@ -19,6 +20,7 @@
         padding: 0 5px;
       }
       p{
+        font-size: 1rem;
         margin: 0;
         padding: 0;
       }

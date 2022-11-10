@@ -1,31 +1,31 @@
-import { Avatar, Box, Button, Container, Divider, IconButton, Typography } from "@mui/material";
 import React from "react";
-import GitHubIcon from '@mui/icons-material/GitHub';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import logo from "../assets/logo.png";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
+  const Goto = (url) => window.open(url, "_blank");
   return (
     <footer>
-      <Container sx={{ textAlign: "center" }}>
-        <Divider variant="middle" sx={{m:2}}/>
-          <Avatar src={logo} sx={{m:"auto"}}/>
-        <Box>
-          <Button>Conditions d'utilisations</Button>
-          <Button>Politique de confidentialité</Button>
-        </Box>
-        <Box>
-          <IconButton>
-            <GitHubIcon/>
-          </IconButton>
-          <IconButton>
-            <LinkedInIcon/>
-          </IconButton>
-        </Box>
-        <Typography variant="subtitle2">© 2022 Yaminoyuurei</Typography>
-      </Container>
+      <hr />
+      <img src={logo} alt="logo" />
+      <div className="links">
+        <Link to="/legal">Conditions d'utilisations</Link>
+        <Link>Politique de confidentialité</Link>
+      </div>
+      <div className="network">
+        <i
+          className="fab fa-github"
+          onClick={() => Goto("https://github.com/Vincent-Fe")}
+        />
+        <i
+          className="fab fa-linkedin"
+          onClick={() =>
+            Goto("https://www.linkedin.com/in/vincent-ferigo-148ba924a/")
+          }
+        />
+      </div>
+      <h5>© 2022 Yaminoyuurei</h5>
     </footer>
   );
 };
-
 export default Footer;

@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { AuthContext } from "../../../contexts/AuthContext";
+import { AuthContext } from "../../../../contexts/AuthContext";
 
 const RegisterTabs = ({ setShowMenu }) => {
   const { signUp, editAccount } = useContext(AuthContext);
@@ -70,7 +70,7 @@ const RegisterTabs = ({ setShowMenu }) => {
       />
       <p className="error">{error}</p>
       <button className="btn" disabled={isSubmitting} type="submit">
-        S'enregistrer
+        S'inscrire
       </button>
     </form>
   );

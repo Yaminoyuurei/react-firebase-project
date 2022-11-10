@@ -1,0 +1,33 @@
+.contact{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: 
+  "E S";
+  h2{
+    text-align: center;
+  }
+  .contact-mail{
+    grid-area: E;
+    padding: 5px;
+  }
+  .contact-social{
+    grid-area: S;
+    padding: 5px;
+    .social{
+      display: flex;
+      justify-content: center;
+      .social-link{
+        cursor: pointer;
+        text-align: center;
+        padding: 5px;
+        i{
+          font-size: 2rem;
+        }
+        &:hover{
+          color: $color1;
+        }
+      }
+    }
+  }
+}

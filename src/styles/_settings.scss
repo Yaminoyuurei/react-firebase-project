@@ -1,15 +1,27 @@
-$bk_nav : rgb(0, 128, 255);
-$nav_link: white;
-$nav_link_active: gray;
-$text_color: black;
+@font-face {
+  font-family: "poppins";
+  src: url("../assets/fonts/Poppins-Regular.ttf") format("truetype");
+}
+$color1: #1e90ff;
+$nav_link: #ffffff;
+$nav_link_active: #dadada;
+$text_color: #000000;
+$background: #ffffff;
 
-body{
+
+$nav_height: 48px;
+$foot_height: 165px;
+$container_auto: calc(100vh - $nav_height - $foot_height);
+
+body {
   margin: 0;
   padding: 0;
-  color: $nav_link;
+  font-family: "poppins", sans-serif;
+  color: $text_color;
 }
 
-.btn{
+.btn {
+  font-size: 1rem;
   cursor: pointer;
   background-color: green;
   border: 2px solid green;
@@ -17,15 +29,15 @@ body{
   padding: 5px 10px;
 }
 
-.container{
+.container {
   padding: 0 10vw;
-  h1{
+  min-height: $container_auto;
+  margin-top: 48px;
+  h1 {
     text-align: center;
-    padding: 0;
-    margin-top: 58px;
-    margin-bottom: 10px;
+    margin: 10px;
   }
-  p{
+  p {
     padding-top: 0;
     margin-top: 0;
   }

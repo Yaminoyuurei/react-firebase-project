@@ -2,7 +2,7 @@ import { signOut } from "firebase/auth";
 import React from "react";
 import OutsideClickHandler from "react-outside-click-handler";
 import { useNavigate } from "react-router-dom";
-import { auth } from "../../services/firebase-config";
+import { auth } from "../../../services/firebase-config";
 
 const AccountMenu = ({ showMenu, setShowMenu }) => {
   const navigate = useNavigate();
@@ -26,11 +26,11 @@ const AccountMenu = ({ showMenu, setShowMenu }) => {
       <div className={showMenu?"accountMenu show":"accountMenu"}>
         <div className="accountContentMenu">
           <button onClick={()=>goTo("/private/account")}>
-            <i class="fa-solid fa-user-gear"></i>
+            <i className="fa-solid fa-user-gear"></i>
             <p>Compte</p>
           </button>
           <button className="disconnect" onClick={logOut}>
-            <i class="fa-solid fa-user-gear"></i>
+            <i className="fas fa-sign-out-alt"></i>
             <p>Déconnexion</p>
           </button>
         </div>

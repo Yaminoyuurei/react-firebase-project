@@ -1,0 +1,33 @@
+footer{
+  padding: 0 10vw;
+  text-align: center;
+  hr{
+    height: 1px;
+    background-color: $nav_link_active;
+    border: none;
+    width: 80%;
+  }
+    img{
+      height: $nav_height
+    }
+
+  .links{
+    text-align: center;
+    a{
+      text-decoration: none;
+      padding: 0 5px;
+    }
+  }
+  .network{
+    i{
+      padding: 2px 5px;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+  }
+  h5{
+    padding: 2px;
+    margin: 0;
+    font-weight: normal;
+  }
+}

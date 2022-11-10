@@ -2,8 +2,8 @@ import React, { useContext, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import { AuthContext } from "../../contexts/AuthContext";
-import LoginMenu from "../Menu/LoginMenu";
-import AccountMenu from "../Menu/AccountMenu";
+import LoginMenu from "./Menu/LoginMenu";
+import AccountMenu from "./Menu/AccountMenu";
 const pages = [
   { name: "Actualité", link: "/news" },
   { name: "Météo", link: "/weather" },
@@ -34,20 +34,22 @@ const Navbar = () => {
             ))}
           </div>
         </div>
-        <div className="logo">
-          {!currentUser ? (
-            <i
-              className="fa-solid fa-right-to-bracket icon"
-              onClick={() => setShowLoginMenu(true)}
-            />
-          ) : (
-            <img
-              className="avatar"
-              src={logo}
-              alt="avatar"
-              onClick={() => setShowAccountMenu(true)}
-            />
-          )}
+        <div>
+          <div className="logo">
+            {!currentUser ? (
+              <i
+                className="fa-solid fa-right-to-bracket icon"
+                onClick={() => setShowLoginMenu(true)}
+              />
+            ) : (
+              <img
+                className="avatar"
+                src={logo}
+                alt="avatar"
+                onClick={() => setShowAccountMenu(true)}
+              />
+            )}
+          </div>
         </div>
       </nav>
       <LoginMenu showMenu={showLoginMenu} setShowMenu={setShowLoginMenu} />

@@ -1,49 +1,21 @@
-import { Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import Home from "./pages/Home";
 import ErrorPage from "./pages/ErrorPage";
 import Private from "./pages/private/Private";
 import Account from "./pages/private/Account";
 import News from "./pages/News/News";
-import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
-import { useEffect, useMemo, useState } from "react";
-import { ColorModeContext } from "./contexts/ColorModeContext";
 import Footer from "./components/Footer";
 import Weather from "./pages/Weather";
 import Contact from "./pages/Contact";
-import "./styles/style.scss"
-
+import "./styles/style.scss";
+import { AuthContextProvider } from "./contexts/AuthContext";
 
 function App() {
-  const darkmode = localStorage.getItem("theme")
-  const [mode, setMode] = useState(darkmode?darkmode:"light");
-  const colorMode = useMemo(
-    () => ({
-      toggleColorMode: () => {
-        setMode((prev) => (prev === "light" ? "dark" : "light"));
-      },
-    }),
-    []
-  );
-  const theme = useMemo(
-    () =>
-      createTheme({
-        palette: {
-          mode: mode,
-        },
-      }),
-    [mode]
-  );
-  
-  useEffect(() => {
-    localStorage.setItem("theme",mode)
-  }, [mode])
-  
   return (
-    <ColorModeContext.Provider value={{ mode, colorMode }}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline enableColorScheme />
-        <Navbar/>
+    <BrowserRouter>
+      <AuthContextProvider>
+        <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/news" element={<News />} />
@@ -54,9 +26,9 @@ function App() {
           </Route>
           <Route path="*" element={<ErrorPage />} />
         </Routes>
-        <Footer/>
-      </ThemeProvider>
-    </ColorModeContext.Provider>
+        <Footer />
+      </AuthContextProvider>
+    </BrowserRouter>
   );
 }
 
