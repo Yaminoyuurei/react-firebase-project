@@ -30,7 +30,8 @@ body {
 }
 
 .container {
-  padding: 0 10vw;
+  margin: 0 auto;
+  max-width: 1024px;
   min-height: $container_auto;
   margin-top: 48px;
   h1 {

@@ -21,6 +21,8 @@ const Articles = ({ article, source }) => {
     result = result.replace(/&#xF9;/gi, "ù");
     result = result.replace(/&#xFB;/gi, "û");
     result = result.replace(/&#xEE;/gi, "î");
+    result = result.replace(/&#x2018;/gi, "'");
+
     return result;
   };
   return (
